@@ -80,38 +80,46 @@ const searchRepo = () => {
     <div v-if="repos.length > 0 && !loading">
       <h2 class="heading">My GitHub Repositories</h2>
       <div class="action-bar">
-  <router-link to="/repos/new" class="link"><button class="new">New Repo</button></router-link>
-  <div v-if="repos.length > 0 && !loading" class="filters-container">
-    <div class="filter">
-      <input type="text" v-model="searchQuery" @keyup.enter="searchRepo" placeholder="Search by repository name" class="search-input">
-    </div>
-    <div class="filter">
-      <select v-model="visibilityFilter" class="visibility-filter">
-        <option value="">All</option>
-        <option value="public">Public</option>
-        <option value="private">Private</option>
-      </select>
-    </div>
-  </div>
-</div>
-      </div>
-      <div class="repos">
-        <div v-for="repo in paginatedRepos" :key="repo.id" class="repo-card">
-          <router-link :to="{ path: `/repo/${username}/${repo.name}` }">
-            <h2>{{ repo.name }}</h2>
-            <p v-if="repo.description">{{ repo.description }}</p>
-            <p v-else>This is a GitHub repo.</p>
-            <p>{{ repo.visibility }}</p>
-          </router-link>
+        <router-link to="/repos/new" class="link"
+          ><button class="new">New Repo</button></router-link
+        >
+        <div v-if="repos.length > 0 && !loading" class="filters-container">
+          <div class="filter">
+            <input
+              type="text"
+              v-model="searchQuery"
+              @keyup.enter="searchRepo"
+              placeholder="Search by repository name"
+              class="search-input"
+            />
+          </div>
+          <div class="filter">
+            <select v-model="visibilityFilter" class="visibility-filter">
+              <option value="">All</option>
+              <option value="public">Public</option>
+              <option value="private">Private</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="pagination">
-        <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1">Previous</button>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <button @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages">
-          Next
-        </button>
+    </div>
+    <div class="repos">
+      <div v-for="repo in paginatedRepos" :key="repo.id" class="repo-card">
+        <router-link :to="{ path: `/repo/${username}/${repo.name}` }">
+          <h2>{{ repo.name }}</h2>
+          <p v-if="repo.description">{{ repo.description }}</p>
+          <p v-else>This is a GitHub repo.</p>
+          <p>{{ repo.visibility }}</p>
+        </router-link>
       </div>
+    </div>
+    <div class="pagination">
+      <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages">
+        Next
+      </button>
+    </div>
 
     <!-- NotFound component -->
     <NotFound v-if="!loading && !user && !repos" />
@@ -151,11 +159,16 @@ section {
 }
 .action-bar {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.action-bar .filters-container {
-  margin-left: auto; /* Push filters to the right */
+.filters-container {
+  display: flex;
+  gap: 1rem;
 }
 
 .link {
@@ -182,7 +195,7 @@ section {
 }
 
 .filter {
-  margin-bottom: 10px;
+  flex: 1;
 }
 
 .search-input {
@@ -204,7 +217,7 @@ section {
   border-radius: 1rem;
   padding: 10px;
   margin: 16px;
-  width: calc(100% - 32px); /* Full width with margin on smaller screens */
+  width: calc(100% - 32px);
   max-width: 550px;
   box-sizing: border-box;
 }
@@ -236,7 +249,6 @@ section {
   margin: 0 10px;
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .user-details {
     padding: 10px;
@@ -245,8 +257,9 @@ section {
   .heading {
     font-size: 1.5rem;
   }
+  
   .repo-card {
-    width: calc(100% - 32px); /* Full width with margin on smaller screens */
+    width: calc(100% - 32px);
   }
   .pagination button {
     padding: 8px;

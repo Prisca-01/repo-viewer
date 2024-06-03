@@ -22,7 +22,7 @@ const createRepo = async () => {
     private: visibility.value === 'private'
   }
 
-  loading.value = true // Start loading
+  loading.value = true
 
   try {
     await api.createRepo(repoData)
@@ -31,7 +31,7 @@ const createRepo = async () => {
     error.value = 'Failed to create repository'
     console.error(err)
   } finally {
-    loading.value = false // Stop loading
+    loading.value = false
   }
 }
 </script>
@@ -68,6 +68,7 @@ section {
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+  min-height: 100vh;
 }
 
 h2 {
@@ -88,7 +89,8 @@ h2 {
 }
 
 label {
-  font-size: 1rem;
+  font-size: 1.2rem;
+  color: rgb(139, 141, 140);
   margin-bottom: 0.5rem;
   display: block;
 }
@@ -101,6 +103,7 @@ select {
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
+  outline: none;
 }
 
 .error {

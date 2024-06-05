@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from 'axios'
 
 // const token = import.meta.env.VITE_GITHUB_TOKEN
 
 const api = axios.create({
-  baseURL: 'https://api.github.com',
+  baseURL: 'https://api.github.com'
   // headers: {
   //   'X-Github-Api-Version': '2022-11-28',
   //   Accept: 'application/vnd.github+json',
@@ -14,22 +14,22 @@ const api = axios.create({
 export default {
   async getUser(name) {
     try {
-      if (!name) throw new Error('User name is required');
-      const response = await api.get(`/users/${name}`);
-      return response.data;
+      if (!name) throw new Error('User name is required')
+      const response = await api.get(`/users/${name}`)
+      return response.data
     } catch (error) {
-      console.error(`Error fetching user: ${error.message}`);
-      throw error;
+      console.error(`Error fetching user: ${error.message}`)
+      throw error
     }
   },
 
   async getRepos(name) {
     try {
-      if (!name) throw new Error('User name is required');
-      const response = await api.get(`/users/${name}/repos`);
-      return response.data;
+      if (!name) throw new Error('User name is required')
+      const response = await api.get(`/users/${name}/repos`)
+      return response.data
     } catch (error) {
-      console.error(`Error fetching repositories: ${error}`);
+      console.error(`Error fetching repositories: ${error}`)
       throw error
     }
   },
@@ -47,11 +47,11 @@ export default {
 
   async createRepo(repoData) {
     try {
-      const response = await api.post('/user/repos', repoData);
-      return response.data;
+      const response = await api.post('/user/repos', repoData)
+      return response.data
     } catch (error) {
-      console.error(`Error creating repository: ${error}`);
-      throw error;
+      console.error(`Error creating repository: ${error}`)
+      throw error
     }
   }
 }

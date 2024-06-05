@@ -56,7 +56,9 @@ const createRepo = async () => {
         </select>
       </div>
       <p v-if="error" class="error">{{ error }}</p>
-      <button type="submit" :disabled="loading">{{ loading ? 'Creating Repo...' : 'Create Repository' }}</button>
+      <button type="submit" :disabled="loading">
+        {{ loading ? 'Creating Repo...' : 'Create Repository' }}
+      </button>
     </form>
   </section>
 </template>

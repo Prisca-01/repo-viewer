@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '../services/api'
+import SkeletonLoader from '../components/SkeletonLoader.vue'
 import NotFound from '../components/NotFound.vue'
 
 const user = ref(null)
@@ -84,7 +85,7 @@ const searchRepo = () => {
           ><button class="new">New Repo</button></router-link
         >
         <div v-if="repos.length > 0 && !loading" class="filters-container">
-          <div class="filter">
+          <div class="filter search-input-container">
             <input
               type="text"
               v-model="searchQuery"
@@ -92,6 +93,7 @@ const searchRepo = () => {
               placeholder="Search by repository name"
               class="search-input"
             />
+            <span class="material-icons search-icon">search</span>
           </div>
           <div class="filter">
             <select v-model="visibilityFilter" class="visibility-filter">
@@ -165,12 +167,10 @@ section {
   flex-wrap: wrap;
   gap: 1rem;
 }
-
 .filters-container {
   display: flex;
   gap: 1rem;
 }
-
 .link {
   background: none;
 }
@@ -187,25 +187,25 @@ section {
 .new:hover {
   background-color: hsla(160, 100%, 37%, 0.5);
 }
-.filters-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+.search-input-container {
+  position: relative;
 }
-
-.filter {
-  flex: 1;
-}
-
 .search-input {
   padding: 8px;
+  padding-right: 30px; /* Extra padding for the icon */
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 250px;
 }
-
+.search-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #999;
+}
 .visibility-filter {
   padding: 8px;
   font-size: 1rem;
@@ -221,14 +221,12 @@ section {
   max-width: 550px;
   box-sizing: border-box;
 }
-
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
 }
-
 .pagination button {
   background-color: hsla(160, 100%, 37%, 1);
   color: white;
@@ -238,17 +236,14 @@ section {
   margin: 0 5px;
   border-radius: 5px;
 }
-
 .pagination button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
   color: hsla(160, 100%, 37%, 1);
 }
-
 .pagination span {
   margin: 0 10px;
 }
-
 @media (max-width: 768px) {
   .user-details {
     padding: 10px;
@@ -257,7 +252,6 @@ section {
   .heading {
     font-size: 1.5rem;
   }
-  
   .repo-card {
     width: calc(100% - 32px);
   }

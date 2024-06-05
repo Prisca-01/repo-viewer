@@ -6,7 +6,7 @@ const api = axios.create({
   baseURL: 'https://api.github.com',
   headers: {
     'X-Github-Api-Version': '2022-11-28',
-    Accept: 'application/vnd.github+json'
+    Accept: 'application/vnd.github+json',
     // Authorization: `Bearer ${token}`
   }
 })

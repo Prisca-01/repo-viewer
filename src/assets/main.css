@@ -1,18 +1,23 @@
 @import './base.css';
 
+body {
+  /* background-image: url(./wallpaper.jpg); */
+  background-size: cover;
+  background-color: #221212;
+}
+
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
   /* padding: 2rem; */
   font-weight: normal;
-  background-color: black;
   min-height: 100vh;
 }
 
-a,
-.green {
+a{
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: rgb(251, 255, 254);
   font-size: 1.8rem;
   transition: 0.4s;
   padding: 3px;
@@ -26,10 +31,11 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 768px) {
   body {
-    background-color: black;
     /* background-image: url(./wallpaper.jpg); */
+    background-color: #221212;
+    background-size: cover;
   }
 
   /* #app {

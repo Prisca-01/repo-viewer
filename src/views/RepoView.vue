@@ -32,11 +32,11 @@ const totalPages = computed(() => Math.ceil(repos.value.length / reposPerPage))
 
 const filteredRepos = computed(() => {
   return repos.value.filter((repo) => {
-    // Apply visibility filter
+    // Visibility filter
     if (visibilityFilter.value && repo.visibility !== visibilityFilter.value) {
       return false
     }
-    // Apply search filter
+    // Search filter
     if (searchQuery.value && !repo.name.toLowerCase().includes(searchQuery.value.toLowerCase())) {
       return false
     }
@@ -68,7 +68,7 @@ const searchRepo = () => {
 <template>
   <section>
     <SkeletonLoader v-if="loading" />
-    <p v-if="!loading && error">Error: {{ error }}</p>
+    <p v-if="!loading && error" class="error-message">Error: {{ error }}</p>
     <p v-if="!user && !repos && !loading">Loading...</p>
 
     <div v-if="user && !loading" class="user-details">
@@ -81,8 +81,10 @@ const searchRepo = () => {
     <div v-if="repos.length > 0 && !loading">
       <h2 class="heading">My GitHub Repositories</h2>
       <div class="action-bar">
-        <router-link to="/repos/new" class="link"
-          ><button class="new">New Repo</button></router-link
+        <router-link to="/repos/new" class="link">
+          <button class="new">
+            <span class="material-icons add-icon">add</span> New Repo
+          </button></router-link
         >
         <div v-if="repos.length > 0 && !loading" class="filters-container">
           <div class="filter search-input-container">
@@ -108,10 +110,19 @@ const searchRepo = () => {
     <div class="repos">
       <div v-for="repo in paginatedRepos" :key="repo.id" class="repo-card">
         <router-link :to="{ path: `/repo/${username}/${repo.name}` }">
-          <h2>{{ repo.name }}</h2>
-          <p v-if="repo.description">{{ repo.description }}</p>
-          <p v-else>This is a GitHub repo.</p>
-          <p>{{ repo.visibility }}</p>
+          <div class="repo-header">
+            <span class="material-icons repo-icon">folder</span>
+            <h2>{{ repo.name }}</h2>
+          </div>
+          <div class="repo-description">
+            <span class="material-icons description-icon">description</span>
+            <p v-if="repo.description">{{ repo.description }}</p>
+            <p v-else>This is a GitHub repo.</p>
+          </div>
+          <div class="repo-visibility">
+            <span class="material-icons visibility-icon">visibility</span>
+            <p>{{ repo.visibility }}</p>
+          </div>
         </router-link>
       </div>
     </div>
@@ -123,7 +134,6 @@ const searchRepo = () => {
       </button>
     </div>
 
-    <!-- NotFound component -->
     <NotFound v-if="!loading && !user && !repos" />
   </section>
 </template>
@@ -135,11 +145,18 @@ section {
   align-items: center;
   padding: 20px;
 }
+.error-message {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-block-start: 4rem;
+  margin-block-end: 2rem;
+}
 .user-details {
   border: 1px solid #fff;
   width: 100%;
   max-width: 900px;
-  color: hsla(160, 100%, 37%, 1);
+  /* color: hsla(160, 100%, 37%, 1); */
+  color: #fff;
   font-size: 1.5rem;
   padding: 20px;
   border-radius: 8px;
@@ -166,6 +183,7 @@ section {
   width: 100%;
   flex-wrap: wrap;
   gap: 1rem;
+  margin-block-start: 1rem;
 }
 .filters-container {
   display: flex;
@@ -175,6 +193,8 @@ section {
   background: none;
 }
 .new {
+  display: flex;
+  align-items: center;
   color: #fff;
   font-size: 1.2rem;
   border: none;
@@ -182,21 +202,24 @@ section {
   border-radius: 1rem;
   width: 10rem;
   height: 2.5rem;
-  margin-bottom: 20px;
 }
 .new:hover {
   background-color: hsla(160, 100%, 37%, 0.5);
+}
+.add-icon {
+  margin-right: 8px;
 }
 .search-input-container {
   position: relative;
 }
 .search-input {
   padding: 8px;
-  padding-right: 30px; /* Extra padding for the icon */
+  padding-right: 30px;
   font-size: 1rem;
   border: 1px solid #ccc;
+  outline: none;
   border-radius: 5px;
-  width: 250px;
+  width: 260px;
 }
 .search-icon {
   position: absolute;
@@ -210,16 +233,30 @@ section {
   padding: 8px;
   font-size: 1rem;
   border: 1px solid #ccc;
+  outline: none;
   border-radius: 5px;
 }
 .repo-card {
   border: 1px solid #ccc;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   padding: 10px;
   margin: 16px;
   width: calc(100% - 32px);
   max-width: 550px;
   box-sizing: border-box;
+}
+.repo-header,
+.repo-description,
+.repo-visibility {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.repo-header .repo-icon,
+.repo-description .description-icon,
+.repo-visibility .visibility-icon {
+  margin-right: 8px;
+  color: hsla(160, 100%, 37%, 1);
 }
 .pagination {
   display: flex;
@@ -243,6 +280,7 @@ section {
 }
 .pagination span {
   margin: 0 10px;
+  color: #999;
 }
 @media (max-width: 768px) {
   .user-details {

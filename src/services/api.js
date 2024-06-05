@@ -3,12 +3,12 @@ import axios from 'axios'
 // const token = import.meta.env.VITE_GITHUB_TOKEN
 
 const api = axios.create({
-  baseURL: 'https://api.github.com'
-  // headers: {
-  //   'X-Github-Api-Version': '2022-11-28',
-  //   Accept: 'application/vnd.github+json',
-  //   Authorization: `Bearer ${token}`
-  // }
+  baseURL: 'https://api.github.com',
+  headers: {
+    'X-Github-Api-Version': '2022-11-28',
+    Accept: 'application/vnd.github+json'
+    // Authorization: `Bearer ${token}`
+  }
 })
 
 export default {

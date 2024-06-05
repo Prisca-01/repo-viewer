@@ -33,9 +33,9 @@ const router = createRouter({
       component: CreateRepo
     },
     {
-      path: '/:pathMatch(.*)*',
-      name: 'not-found',
-      component: NotFound
+      path: '/:catchAll(.*)',
+      name: 'NotFound',
+      component: NotFound,
     },
     {
       path: '/repo/:owner/:name',

@@ -1,8 +1,10 @@
 <template>
     <div class="not-found">
-        <h1>404 - Page Not Found</h1>
+      <img src="../assets/Error.png" alt="404 Image">
+      <img src="../assets/Error.png" alt="404 Image">
+        <!-- <h1>404 - Page Not Found</h1> -->
         <p>Opps! Seems you lost your way.</p>
-        <router-link to="/repos" class="link"><button class="back">Back</button></router-link>
+        <router-link to="/repos" class="link"><button class="back">Go Back</button></router-link>
     </div>
 </template>
 
@@ -13,14 +15,19 @@
     min-height: 100vh;
 }
 
-h1 {
-    font-size: 36px;
-    color: #5f5f5f;
+img {
+  width: 30%;
+  height: 150px;
 }
 
+/* h1 {
+    font-size: 36px;
+    color: #5f5f5f;
+} */
+
 p {
-    font-size: 18px;
-    color: #616060;
+    font-size: 1.5rem;
+    color: #fff;
 }
 .link {
   background: none;

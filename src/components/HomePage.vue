@@ -58,7 +58,6 @@ button:hover {
   background: none;
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .head {
     margin-block-start: 3rem;

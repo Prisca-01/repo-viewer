@@ -1,9 +1,8 @@
 @import './base.css';
 
 body {
-  /* background-image: url(./wallpaper.jpg); */
   background-size: cover;
-  background-color: #221212;
+  background-color: #000;
 }
 
 
@@ -33,14 +32,7 @@ a{
 
 @media (max-width: 768px) {
   body {
-    /* background-image: url(./wallpaper.jpg); */
-    background-color: #221212;
+    background-color: #000;
     background-size: cover;
   }
-
-  /* #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  } */
 }

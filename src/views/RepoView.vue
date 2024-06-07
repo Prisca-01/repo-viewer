@@ -32,11 +32,9 @@ const totalPages = computed(() => Math.ceil(repos.value.length / reposPerPage))
 
 const filteredRepos = computed(() => {
   return repos.value.filter((repo) => {
-    // Visibility filter
     if (visibilityFilter.value && repo.visibility !== visibilityFilter.value) {
       return false
     }
-    // Search filter
     if (searchQuery.value && !repo.name.toLowerCase().includes(searchQuery.value.toLowerCase())) {
       return false
     }
@@ -72,7 +70,7 @@ const searchRepo = () => {
     <p v-if="!user && !repos && !loading">Loading...</p>
 
     <div v-if="user && !loading" class="user-details">
-      <img :src="user.avatar_url" alt="User avatar" />
+      <img :src="user.avatar_url" alt="User avatar" class="user-avatar" />
       <h3>{{ user.login }}</h3>
       <p>{{ user.name }}</p>
       <p>{{ user.bio }}</p>
@@ -80,21 +78,16 @@ const searchRepo = () => {
 
     <div v-if="repos.length > 0 && !loading">
       <h2 class="heading">My GitHub Repositories</h2>
+      <p class="info">Click on any of the boxes to view Repository Details</p>
       <div class="action-bar">
         <router-link to="/repos/new" class="link">
           <button class="new">
             <span class="material-icons add-icon">add</span> New Repo
-          </button></router-link
-        >
+          </button></router-link>
         <div v-if="repos.length > 0 && !loading" class="filters-container">
           <div class="filter search-input-container">
-            <input
-              type="text"
-              v-model="searchQuery"
-              @keyup.enter="searchRepo"
-              placeholder="Search by repository name"
-              class="search-input"
-            />
+            <input type="text" v-model="searchQuery" @keyup.enter="searchRepo" placeholder="Search by repository name"
+              class="search-input" />
             <span class="material-icons search-icon">search</span>
           </div>
           <div class="filter">
@@ -105,6 +98,8 @@ const searchRepo = () => {
             </select>
           </div>
         </div>
+        <router-link to="/:catchAll(.*)" class="link">
+          <button class="error-page">Test 404</button></router-link>
       </div>
     </div>
     <div class="repos">
@@ -145,37 +140,52 @@ section {
   align-items: center;
   padding: 20px;
 }
+
 .error-message {
   color: #fff;
   font-size: 1.5rem;
   margin-block-start: 4rem;
   margin-block-end: 2rem;
 }
+
 .user-details {
-  border: 1px solid #fff;
+  border: 1px solid hsla(160, 100%, 37%, 0.2);
   width: 100%;
   max-width: 900px;
-  /* color: hsla(160, 100%, 37%, 1); */
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 20px;
+  margin-block-start: 20px;
+  margin-block-end: 20px;
   text-align: center;
-  box-sizing: border-box;
 }
+
+.user-avatar {
+  border-radius: 50%;
+  height: 80px;
+}
+
 .heading {
   color: hsla(160, 100%, 37%, 1);
   font-size: 2rem;
   margin-block-start: 2rem;
   text-align: center;
 }
+
+.info {
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+}
+
 .repos {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
 }
+
 .action-bar {
   display: flex;
   justify-content: space-between;
@@ -185,42 +195,51 @@ section {
   gap: 1rem;
   margin-block-start: 1rem;
 }
+
 .filters-container {
   display: flex;
   gap: 1rem;
 }
+
 .link {
   background: none;
 }
+
 .new {
   display: flex;
   align-items: center;
+  justify-content: center;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   border: none;
   background-color: hsla(160, 100%, 37%, 1);
   border-radius: 1rem;
-  width: 10rem;
+  width: 8rem;
   height: 2.5rem;
 }
+
 .new:hover {
   background-color: hsla(160, 100%, 37%, 0.5);
 }
+
 .add-icon {
-  margin-right: 8px;
+  margin-inline-end: 8px;
 }
+
 .search-input-container {
   position: relative;
 }
+
 .search-input {
   padding: 8px;
-  padding-right: 30px;
+  padding-inline-end: 30px;
   font-size: 1rem;
   border: 1px solid #ccc;
   outline: none;
   border-radius: 5px;
   width: 260px;
 }
+
 .search-icon {
   position: absolute;
   right: 8px;
@@ -229,6 +248,7 @@ section {
   pointer-events: none;
   color: #999;
 }
+
 .visibility-filter {
   padding: 8px;
   font-size: 1rem;
@@ -236,34 +256,53 @@ section {
   outline: none;
   border-radius: 5px;
 }
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  background-color: hsla(160, 100%, 37%, 1);
+  border-radius: 1rem;
+  width: 8rem;
+  height: 2.5rem;
+}
+.error-page:hover {
+  background-color: hsla(160, 100%, 37%, 0.5);
+}
 .repo-card {
-  border: 1px solid #ccc;
+  border: 1px solid hsla(160, 100%, 37%, 0.2);
   border-radius: 0.5rem;
   padding: 10px;
-  margin: 16px;
+  margin: 14px;
   width: calc(100% - 32px);
-  max-width: 550px;
-  box-sizing: border-box;
+  max-width: 500px;
+  font-size: 1rem;
 }
+
 .repo-header,
 .repo-description,
 .repo-visibility {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  font-size: 1.2rem;
 }
+
 .repo-header .repo-icon,
 .repo-description .description-icon,
 .repo-visibility .visibility-icon {
   margin-right: 8px;
   color: hsla(160, 100%, 37%, 1);
 }
+
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
 }
+
 .pagination button {
   background-color: hsla(160, 100%, 37%, 1);
   color: white;
@@ -273,26 +312,32 @@ section {
   margin: 0 5px;
   border-radius: 5px;
 }
+
 .pagination button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
   color: hsla(160, 100%, 37%, 1);
 }
+
 .pagination span {
   margin: 0 10px;
   color: #999;
 }
+
 @media (max-width: 768px) {
   .user-details {
     padding: 10px;
     font-size: 1rem;
   }
+
   .heading {
     font-size: 1.5rem;
   }
+
   .repo-card {
     width: calc(100% - 32px);
   }
+
   .pagination button {
     padding: 8px;
     margin: 0 3px;

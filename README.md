@@ -12,7 +12,7 @@ This is a GitHub repository viewer app built using Vue.js and CSS. It allows use
 - View commit history and compare different versions of files
 
 ## Installation
-1. Clone the repository: `git clone https://github.com/your-username/repo-viewer.git`
+1. Clone the repository: `git clone https://github.com/Prisca-01/repo-viewer.git`
 2. Navigate to the project directory: `cd repo-viewer`
 3. Install dependencies: `npm install`
 

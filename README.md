@@ -23,8 +23,5 @@ This is a GitHub repository viewer app built using Vue.js and CSS. It allows use
 ## Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
 ## Contact
 For any inquiries or questions, feel free to reach out to me at [priscaonyemaechi26@gmail.com](mailto:priscaonyemaechi26@gmail.com).

@@ -85,7 +85,7 @@ const searchRepo = () => {
             <span class="material-icons add-icon">add</span> New Repo
           </button></router-link>
           <router-link to="/:catchAll(.*)" class="link">
-            <button class="error-page">Test 404</button></router-link>
+            <button class="error-page">Test 404 page</button></router-link>
         <div v-if="repos.length > 0 && !loading" class="filters-container">
           <div class="filter search-input-container">
             <input type="text" v-model="searchQuery" @keyup.enter="searchRepo" placeholder="Search by repository name"
